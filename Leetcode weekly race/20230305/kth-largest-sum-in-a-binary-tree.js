@@ -1,4 +1,4 @@
-// https://leetcode.cn/problems/average-of-levels-in-binary-tree/
+// https://leetcode.cn/problems/kth-largest-sum-in-a-binary-tree/
 function Queue(){
     // 属性
     this.items = []
@@ -32,32 +32,28 @@ function Queue(){
         return str
     }
 }
-
-var averageOfLevels = function(root) {
-    let res = []
+var kthLargestLevelSum = function(root, k) {
     let queue = new Queue()
-    if (!root) {
-        return res
-    }
+    let nums = [] 
     queue.enqueue(root)
-    while (!queue.isEmpty()) {
-        let size = queue.size()
-        let path = []
-        while (size--) {
-            let node = queue.dequeue()
-            path.push(node.val)
-            if(node.left) {
-                queue.enqueue(node.left)
-            } 
-            if(node.right) {
-                queue.enqueue(node.right)
+    while(queue.size() != 0) {
+        let len = queue.size()
+        let sum = 0
+        for (i = 0; i < len; i++) {
+            let curr = queue.dequeue()
+            sum += curr.val
+            if (curr.left) {
+                queue.enqueue(curr.left)
+            }
+            if (curr.right) {
+                queue.enqueue(curr.right)
             }
         }
-        let sum = 0
-        for (let i = 0; i < path.length; i++) {
-            sum = sum + path[i]
-        }
-        res.push(sum/path.length)
+        nums.push(sum)
     }
-    return res
+    nums.sort(function(a, b){return b-a})
+    if (nums.length < k) {
+        return -1
+    }
+    return nums[k-1]
 };

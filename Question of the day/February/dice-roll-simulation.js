@@ -1,4 +1,5 @@
 // https://leetcode.cn/problems/dice-roll-simulation/
+// idea: https://leetcode.cn/problems/dice-roll-simulation/solution/jiao-ni-yi-bu-bu-si-kao-dong-tai-gui-hua-sje6/
 var dieSimulator = function(n, rollMax) {
     let mod = 1e9 + 7
     let ans = 0
